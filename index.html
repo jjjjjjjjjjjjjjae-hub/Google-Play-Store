@@ -1,371 +1,53 @@
 <!doctype html>
 <html lang="kk">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0b1020" />
-  <title>HTML Market — өз қосымшаларың</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08090d">
+  <title>BYTEHUB — жеке creator дүкені</title>
   <style>
-    :root {
-      --bg: #080b16;
-      --panel: rgba(18, 24, 43, .82);
-      --panel-strong: #151c34;
-      --line: rgba(255,255,255,.1);
-      --text: #f5f7ff;
-      --muted: #a9b3ce;
-      --brand: #7c5cff;
-      --brand-2: #18c8a0;
-      --danger: #ff6b82;
-      --shadow: 0 22px 70px rgba(0,0,0,.28);
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 10% 0%, rgba(124,92,255,.2), transparent 32rem),
-        radial-gradient(circle at 90% 15%, rgba(24,200,160,.12), transparent 28rem),
-        var(--bg);
-      font: 15px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    button, input, select, textarea { font: inherit; }
-    button { cursor: pointer; }
-    a { color: inherit; text-decoration: none; }
-    .wrap { width: min(1160px, calc(100% - 32px)); margin: 0 auto; }
-
-    header {
-      position: sticky; top: 0; z-index: 10;
-      border-bottom: 1px solid var(--line);
-      background: rgba(8,11,22,.72);
-      backdrop-filter: blur(18px);
-    }
-    .nav { height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
-    .brand { display: flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: -.03em; font-size: 19px; }
-    .brand-mark {
-      width: 38px; height: 38px; display: grid; place-items: center; border-radius: 13px;
-      background: linear-gradient(135deg, var(--brand), #a393ff); box-shadow: 0 8px 26px rgba(124,92,255,.35);
-    }
-    .nav-links { display: flex; gap: 8px; align-items: center; }
-    .nav-links a, .ghost-btn {
-      border: 1px solid transparent; padding: 9px 13px; color: var(--muted); border-radius: 10px; background: transparent;
-    }
-    .nav-links a:hover, .ghost-btn:hover { color: var(--text); background: rgba(255,255,255,.06); border-color: var(--line); }
-
-    .hero { padding: 72px 0 42px; display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 48px; }
-    .eyebrow { display: inline-flex; gap: 8px; align-items: center; color: #bcb1ff; font-weight: 700; font-size: 13px; margin-bottom: 15px; }
-    h1 { font-size: clamp(38px, 6vw, 72px); line-height: .98; letter-spacing: -.065em; margin: 0 0 20px; max-width: 680px; }
-    .hero p { margin: 0; color: var(--muted); font-size: 17px; max-width: 580px; }
-    .hero-actions { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
-    .primary-btn, .secondary-btn {
-      border: 0; border-radius: 12px; padding: 12px 17px; font-weight: 750; transition: transform .2s, filter .2s;
-    }
-    .primary-btn { color: white; background: linear-gradient(135deg, var(--brand), #5e46d5); box-shadow: 0 12px 28px rgba(124,92,255,.27); }
-    .secondary-btn { color: var(--text); background: rgba(255,255,255,.08); border: 1px solid var(--line); }
-    .primary-btn:hover, .secondary-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
-    .hero-art { min-height: 310px; display: grid; place-items: center; position: relative; }
-    .orb { width: 240px; height: 240px; border-radius: 50%; background: linear-gradient(135deg, rgba(124,92,255,.8), rgba(24,200,160,.58)); filter: blur(1px); box-shadow: 0 0 100px rgba(124,92,255,.4); }
-    .floating-card { position: absolute; display: flex; align-items: center; gap: 12px; padding: 14px 16px; min-width: 185px; border: 1px solid var(--line); border-radius: 17px; background: rgba(20,27,48,.84); box-shadow: var(--shadow); backdrop-filter: blur(16px); }
-    .floating-card strong { display: block; font-size: 13px; }
-    .floating-card small { color: var(--muted); }
-    .float-one { top: 17px; left: 4%; transform: rotate(-7deg); }
-    .float-two { right: 0; bottom: 26px; transform: rotate(6deg); }
-    .mini-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; background: rgba(255,255,255,.11); font-size: 21px; }
-
-    .section { padding: 30px 0 70px; }
-    .section-head { display: flex; justify-content: space-between; gap: 20px; align-items: end; margin-bottom: 20px; }
-    .section-head h2 { margin: 0; font-size: 27px; letter-spacing: -.04em; }
-    .section-head p { margin: 5px 0 0; color: var(--muted); }
-    .toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0; }
-    .search { flex: 1 1 250px; position: relative; }
-    .search input { width: 100%; padding: 12px 15px 12px 42px; border-radius: 12px; color: var(--text); background: var(--panel); border: 1px solid var(--line); outline: none; }
-    .search input:focus, select:focus, input:focus, textarea:focus { border-color: rgba(124,92,255,.8); box-shadow: 0 0 0 3px rgba(124,92,255,.15); }
-    .search span { position: absolute; left: 15px; top: 10px; font-size: 18px; }
-    select, .file-input, textarea, .text-input { width: 100%; color: var(--text); background: #0f1528; border: 1px solid var(--line); border-radius: 10px; padding: 11px 12px; outline: none; }
-    .category-btn { border: 1px solid var(--line); border-radius: 10px; padding: 10px 13px; color: var(--muted); background: rgba(255,255,255,.04); }
-    .category-btn.active, .category-btn:hover { color: white; background: rgba(124,92,255,.22); border-color: rgba(124,92,255,.65); }
-    .app-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-    .app-card { display: flex; flex-direction: column; min-height: 265px; padding: 19px; border: 1px solid var(--line); border-radius: 19px; background: linear-gradient(180deg, rgba(24,31,55,.88), rgba(15,20,38,.82)); box-shadow: 0 13px 35px rgba(0,0,0,.1); transition: transform .22s, border-color .22s; }
-    .app-card:hover { transform: translateY(-5px); border-color: rgba(124,92,255,.62); }
-    .app-top { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
-    .app-icon { width: 58px; height: 58px; display: grid; place-items: center; border-radius: 18px; font-size: 30px; background: linear-gradient(135deg, rgba(124,92,255,.27), rgba(24,200,160,.2)); border: 1px solid rgba(255,255,255,.1); }
-    .pill { color: #bcb1ff; background: rgba(124,92,255,.13); border: 1px solid rgba(124,92,255,.25); border-radius: 99px; padding: 5px 9px; font-size: 11px; font-weight: 750; }
-    .app-card h3 { margin: 16px 0 5px; font-size: 18px; letter-spacing: -.025em; }
-    .app-card p { color: var(--muted); margin: 0; font-size: 13px; }
-    .app-meta { color: #8590ad; font-size: 12px; margin-top: 12px; }
-    .card-actions { display: flex; gap: 8px; margin-top: auto; padding-top: 18px; }
-    .card-actions button { flex: 1; border: 1px solid var(--line); border-radius: 10px; padding: 9px 8px; color: var(--text); background: rgba(255,255,255,.06); font-weight: 700; }
-    .card-actions button:first-child { background: linear-gradient(135deg, var(--brand), #5e46d5); border: 0; }
-    .card-actions button:hover { filter: brightness(1.13); }
-    .empty { grid-column: 1/-1; padding: 45px 20px; text-align: center; color: var(--muted); border: 1px dashed var(--line); border-radius: 16px; }
-
-    .add-section { display: grid; grid-template-columns: .8fr 1.2fr; gap: 20px; align-items: stretch; }
-    .info-panel, .form-panel { border: 1px solid var(--line); border-radius: 20px; background: var(--panel); padding: 24px; box-shadow: var(--shadow); }
-    .info-panel { background: linear-gradient(145deg, rgba(124,92,255,.22), rgba(18,24,43,.86) 65%); }
-    .info-panel h2 { margin-top: 0; font-size: 28px; letter-spacing: -.04em; }
-    .info-panel p, .info-panel li { color: var(--muted); }
-    .info-panel ul { padding-left: 20px; }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
-    .field { display: grid; gap: 7px; }
-    .field.full { grid-column: 1/-1; }
-    label { font-size: 12px; color: var(--muted); font-weight: 700; }
-    textarea { min-height: 92px; resize: vertical; }
-    .file-input { padding: 9px; }
-    .file-note { color: #818ba8; font-size: 12px; margin-top: 5px; }
-    .form-submit { margin-top: 16px; width: 100%; }
-    .notice { display: none; margin-top: 12px; padding: 11px 13px; border-radius: 10px; font-size: 13px; }
-    .notice.show { display: block; }
-    .notice.ok { background: rgba(24,200,160,.14); border: 1px solid rgba(24,200,160,.35); color: #7bf0d2; }
-    .notice.error { background: rgba(255,107,130,.14); border: 1px solid rgba(255,107,130,.35); color: #ffb2bf; }
-
-    footer { border-top: 1px solid var(--line); padding: 25px 0; color: #7e89a5; font-size: 13px; }
-    .modal { position: fixed; inset: 0; z-index: 30; display: none; place-items: center; padding: 18px; background: rgba(2,4,10,.76); backdrop-filter: blur(9px); }
-    .modal.open { display: grid; }
-    .modal-box { width: min(900px, 100%); height: min(730px, 92vh); display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: #10162a; box-shadow: var(--shadow); }
-    .modal-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 17px; border-bottom: 1px solid var(--line); }
-    .modal-head strong { font-size: 15px; }
-    .close { border: 0; background: transparent; color: var(--muted); font-size: 24px; }
-    iframe { flex: 1; width: 100%; border: 0; background: white; }
-    .toast { position: fixed; right: 18px; bottom: 18px; z-index: 50; transform: translateY(130px); opacity: 0; padding: 12px 15px; border: 1px solid rgba(24,200,160,.45); border-radius: 12px; color: #d6fff5; background: #102f2b; transition: .25s; }
-    .toast.show { transform: translateY(0); opacity: 1; }
-    @media (max-width: 850px) {
-      .hero, .add-section { grid-template-columns: 1fr; }
-      .hero { padding-top: 45px; }
-      .hero-art { min-height: 230px; }
-      .app-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 560px) {
-      .wrap { width: min(100% - 22px, 1160px); }
-      .nav-links a { display: none; }
-      .nav { height: 62px; }
-      h1 { font-size: 44px; }
-      .app-grid, .form-grid { grid-template-columns: 1fr; }
-      .field.full { grid-column: auto; }
-      .floating-card { transform: scale(.88); }
-    }
+    :root{--bg:#08090d;--panel:#111318;--panel2:#171a22;--line:rgba(255,255,255,.1);--text:#f7f8fb;--muted:#8d94a5;--lime:#cbff3d;--cyan:#45e6ff;--pink:#ff739d;--purple:#9d7bff;--shadow:0 25px 90px rgba(0,0,0,.42)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--text);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at 8% -10%,rgba(203,255,61,.12),transparent 28rem),radial-gradient(circle at 92% 5%,rgba(69,230,255,.1),transparent 30rem),var(--bg)}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.16;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,#000,transparent 80%)}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}.shell{width:min(1240px,calc(100% - 36px));margin:auto}
+    .topbar{position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line);background:rgba(8,9,13,.82);backdrop-filter:blur(20px)}.nav{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:22px}.brand{display:flex;align-items:center;gap:10px;border:0;color:var(--text);background:transparent;font-weight:950;letter-spacing:.1em}.brand em{color:var(--lime);font-style:normal}.mark{width:35px;height:35px;display:grid;place-items:center;color:#101508;background:var(--lime);border-radius:10px;box-shadow:0 0 28px rgba(203,255,61,.35);font-weight:1000}.links{display:flex;gap:4px}.links a{padding:9px 12px;border:1px solid transparent;border-radius:9px;color:var(--muted)}.links a:hover{color:var(--text);border-color:var(--line);background:rgba(255,255,255,.06)}.lime{border:0;border-radius:9px;padding:10px 14px;color:#111508;background:var(--lime);font-weight:850;box-shadow:0 0 24px rgba(203,255,61,.16);transition:.2s}.lime:hover{transform:translateY(-2px);filter:brightness(1.08)}.outline{border:1px solid var(--line);border-radius:9px;padding:10px 14px;color:var(--text);background:rgba(255,255,255,.05);font-weight:750}.outline:hover{border-color:rgba(203,255,61,.5);background:rgba(203,255,61,.08)}
+    .hero{min-height:600px;display:grid;grid-template-columns:1fr .9fr;align-items:center;gap:50px;padding:78px 0 55px}.kicker{display:inline-flex;align-items:center;gap:8px;color:var(--lime);font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:850}.kicker:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 16px var(--lime)}h1{max-width:740px;margin:18px 0 20px;font-size:clamp(46px,7vw,94px);line-height:.9;letter-spacing:-.085em}h1 span{color:var(--lime)}.hero p{max-width:550px;color:var(--muted);font-size:17px}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}.note{margin-top:21px;color:#687083;font-size:12px}.note b{color:#aeb6c6}
+    .showcase{position:relative;min-height:410px;display:grid;place-items:center}.glow{position:absolute;width:245px;height:245px;border-radius:50%;background:var(--lime);filter:blur(90px);opacity:.17}.window{position:relative;width:min(425px,100%);overflow:hidden;border:1px solid rgba(255,255,255,.16);border-radius:24px;background:linear-gradient(140deg,rgba(34,38,47,.96),rgba(14,16,21,.96));box-shadow:25px 25px 90px rgba(0,0,0,.55),0 0 70px rgba(203,255,61,.1);transform:rotate(3deg)}.window-top{display:flex;justify-content:space-between;padding:15px 17px;border-bottom:1px solid var(--line);color:#747d90;font-size:10px;letter-spacing:.13em;text-transform:uppercase}.window-top span:last-child{color:var(--lime)}.window-body{padding:26px}.featured{color:var(--lime);font-size:10px;letter-spacing:.18em;text-transform:uppercase}.window h2{margin:10px 0 19px;font-size:38px;line-height:.92;letter-spacing:-.07em}.window h2 b{color:var(--cyan)}.art{height:145px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:linear-gradient(135deg,#1b2a3d,#101316)}.art:before{content:"";position:absolute;width:190px;height:190px;top:-85px;right:-40px;border:1px solid rgba(69,230,255,.55);border-radius:50%;box-shadow:0 0 0 18px rgba(69,230,255,.04),0 0 0 38px rgba(69,230,255,.025)}.art:after{content:"◈";position:absolute;left:30px;bottom:7px;color:var(--cyan);font-size:83px;text-shadow:0 0 30px rgba(69,230,255,.7)}.window-foot{display:flex;justify-content:space-between;align-items:center;margin-top:17px}.avatar{width:25px;height:25px;display:inline-grid;place-items:center;margin-right:7px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--purple));font-size:11px}.creator{display:flex;align-items:center;color:#aeb5c5;font-size:12px}.mini{border:1px solid rgba(203,255,61,.4);border-radius:8px;padding:8px 11px;color:var(--lime);background:rgba(203,255,61,.09);font-size:12px;font-weight:800}.float{position:absolute;right:-18px;bottom:56px;padding:13px 15px;border:1px solid rgba(203,255,61,.45);border-radius:14px;color:#eaffb4;background:rgba(26,36,13,.93);box-shadow:0 15px 45px rgba(0,0,0,.38);transform:rotate(-6deg)}.float strong{display:block;color:var(--lime);font-size:19px}.float small{color:#9da784}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:14px 0 55px}.stat{padding:17px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.035)}.stat strong{display:block;font-size:27px;letter-spacing:-.05em}.stat span{color:var(--muted);font-size:12px}.section{padding:55px 0 82px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:15px;margin-bottom:21px}.section-head h2{margin:0;font-size:30px;letter-spacing:-.06em}.section-head p{margin:4px 0 0;color:var(--muted)}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:20px}.search{flex:1 1 260px;position:relative}.search input{width:100%;padding:11px 13px 11px 37px;border:1px solid var(--line);border-radius:9px;outline:0;color:var(--text);background:rgba(255,255,255,.05)}.search span{position:absolute;left:13px;top:9px;color:var(--muted);font-size:18px}.filter{border:1px solid var(--line);border-radius:9px;padding:10px 12px;color:var(--muted);background:rgba(255,255,255,.04)}.filter.active,.filter:hover{color:var(--lime);border-color:rgba(203,255,61,.4);background:rgba(203,255,61,.08)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.card{position:relative;min-height:280px;padding:18px;overflow:hidden;border:1px solid var(--line);border-radius:17px;background:linear-gradient(145deg,rgba(25,28,36,.94),rgba(15,17,22,.94));transition:.22s}.card:hover{transform:translateY(-6px);border-color:rgba(203,255,61,.44);box-shadow:0 18px 55px rgba(0,0,0,.25)}.card:after{content:"";position:absolute;width:100px;height:100px;right:-45px;top:-45px;border-radius:50%;background:var(--color,var(--lime));filter:blur(34px);opacity:.18}.card-top{display:flex;justify-content:space-between;position:relative;z-index:1}.icon{width:60px;height:60px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.13);border-radius:16px;background:var(--icon-bg,rgba(203,255,61,.12));font-size:29px}.verified{padding:5px 8px;border:1px solid rgba(203,255,61,.25);border-radius:99px;color:var(--lime);background:rgba(203,255,61,.08);font-size:10px;font-weight:800;height:max-content}.card h3{position:relative;z-index:1;margin:18px 0 4px;font-size:19px;letter-spacing:-.035em}.card p{position:relative;z-index:1;min-height:43px;margin:0;color:var(--muted);font-size:13px}.meta{display:flex;gap:10px;margin-top:14px;color:#727b8d;font-size:11px}.card-actions{display:flex;gap:8px;margin-top:18px}.card-actions button{flex:1;border:1px solid var(--line);border-radius:8px;padding:9px 7px;color:var(--text);background:rgba(255,255,255,.05);font-size:12px;font-weight:800}.card-actions button:first-child{border-color:transparent;color:#111508;background:var(--lime)}.card-actions button:hover{filter:brightness(1.1)}
+    .media-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.video{overflow:hidden;border:1px solid var(--line);border-radius:16px;background:var(--panel)}.thumb{height:165px;display:grid;place-items:center;position:relative;background:linear-gradient(135deg,#172c43,#241c40)}.video:nth-child(2) .thumb{background:linear-gradient(135deg,#392119,#1e2539)}.video:nth-child(3) .thumb{background:linear-gradient(135deg,#123b3b,#172327)}.thumb:before{content:"";width:58px;height:58px;border:1px solid rgba(255,255,255,.4);border-radius:50%;background:rgba(255,255,255,.12);backdrop-filter:blur(8px)}.thumb:after{content:"▶";position:absolute;color:var(--lime);font-size:21px;text-shadow:0 0 18px rgba(203,255,61,.6)}.video-info{padding:15px}.video-info h3{margin:0 0 5px;font-size:16px}.video-info p{margin:0;color:var(--muted);font-size:12px}.video-meta{display:flex;justify-content:space-between;margin-top:12px;color:#737b8d;font-size:11px}.guides{display:grid;grid-template-columns:1fr 1fr;gap:12px}.guide{display:grid;grid-template-columns:48px 1fr auto;align-items:center;gap:13px;padding:16px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.035)}.guide-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:13px;color:var(--cyan);background:rgba(69,230,255,.1);font-size:20px}.guide h3{margin:0 0 3px;font-size:15px}.guide p{margin:0;color:var(--muted);font-size:12px}.arrow{color:var(--lime);font-size:20px}
+    .upload{display:grid;grid-template-columns:.8fr 1.2fr;gap:18px}.upload>div{padding:26px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.04)}.intro{background:linear-gradient(140deg,rgba(203,255,61,.12),rgba(255,255,255,.03))!important}.intro h2{margin:10px 0}.intro p,.intro li{color:var(--muted)}.intro ul{padding-left:18px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}label{color:var(--muted);font-size:11px;font-weight:800}.text,textarea,select{width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;outline:0;color:var(--text);background:#0d0f14}textarea{min-height:100px;resize:vertical}.drop{display:grid;place-items:center;gap:3px;min-height:120px;border:1px dashed rgba(203,255,61,.45);border-radius:12px;color:var(--muted);background:rgba(203,255,61,.04);text-align:center}.drop strong{color:var(--lime)}.drop input{max-width:235px;color:var(--muted);font-size:12px}.submit{width:100%;margin-top:14px}.drafts{display:grid;gap:8px;margin-top:18px}.draft{display:flex;justify-content:space-between;padding:11px 12px;border:1px solid var(--line);border-radius:10px;color:var(--muted);background:rgba(0,0,0,.16);font-size:12px}.draft b{color:var(--text)}footer{padding:25px 0 38px;border-top:1px solid var(--line);color:#6d7588;font-size:12px}.toast{position:fixed;right:18px;bottom:18px;z-index:50;max-width:310px;padding:13px 15px;border:1px solid rgba(203,255,61,.4);border-radius:11px;color:#eaffb4;background:#1c2710;box-shadow:var(--shadow);transform:translateY(120px);opacity:0;transition:.25s}.toast.show{transform:translateY(0);opacity:1}
+    @media(max-width:900px){.hero{grid-template-columns:1fr;padding-top:55px}.showcase{min-height:360px}.grid,.media-grid{grid-template-columns:repeat(2,1fr)}.upload{grid-template-columns:1fr}}@media(max-width:620px){.shell{width:calc(100% - 22px)}.links a:not(:first-child){display:none}.creator{font-size:11px}h1{font-size:54px}.stats{grid-template-columns:1fr 1fr}.grid,.media-grid,.guides,.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.float{right:-3px}}
   </style>
 </head>
 <body>
-  <header>
-    <div class="wrap nav">
-      <a class="brand" href="#top"><span class="brand-mark">⌘</span><span>HTML Market</span></a>
-      <nav class="nav-links" aria-label="Негізгі мәзір">
-        <a href="#apps">Дүкен</a>
-        <a href="#add">Қосымша қосу</a>
-        <button class="ghost-btn" id="installedLink">Менің қосымшаларым <span id="installedCount">0</span></button>
-      </nav>
-    </div>
-  </header>
+  <header class="topbar"><div class="shell nav"><a class="brand" href="#top"><span class="mark">✦</span><span>BYTE<em>HUB</em></span></a><nav class="links"><a href="#apps">Қосымшалар</a><a href="#media">Видео</a><a href="#guides">Нұсқаулық</a></nav><a class="lime" href="#upload">+ Creator mode</a></div></header>
+  <main id="top" class="shell">
+    <section class="hero"><div><div class="kicker">Жеке creator дүкені</div><h1>Өз APK-ңды <span>showcase</span> ет.</h1><p>Қосымша, видео және нұсқаулық — бәрі бір стильде. BYTEHUB сенің жеке өнімдеріңе арналған қарапайым, бірақ қатты көрінетін дүкен.</p><div class="actions"><a class="lime" href="#apps">Дүкенді ашу →</a><a class="outline" href="#upload">+ Контент қосу</a></div><div class="note"><b>LIVE PREVIEW</b> · mobile-first · creator focused</div></div><div class="showcase"><div class="glow"></div><div class="window"><div class="window-top"><span>featured / 001</span><span>● live</span></div><div class="window-body"><div class="featured">Creator pick</div><h2>NOVA<br><b>TOOLS</b></h2><div class="art"></div><div class="window-foot"><div class="creator"><span class="avatar">N</span>by jjjjj</div><button class="mini" onclick="notify('NOVA TOOLS дайын болғанда жүктеу басталады')">Install ↗</button></div></div></div><div class="float"><strong>12.8K</strong><small>views this month</small></div></div></section>
+    <div class="stats"><div class="stat"><strong>06</strong><span>Apps in shelf</span></div><div class="stat"><strong>18</strong><span>Guides published</span></div><div class="stat"><strong>24K</strong><span>Total views</span></div><div class="stat"><strong>99%</strong><span>Creator energy</span></div></div>
 
-  <main id="top">
-    <div class="wrap">
-      <section class="hero">
-        <div>
-          <div class="eyebrow">✦ HTML форматындағы жеке дүкен</div>
-          <h1>Өз қосымшаларыңды бір жерге жина.</h1>
-          <p>HTML файлды таңда, дүкенге қос, preview жаса және браузерде бір басумен іске қос. Қосылған қосымшалар осы құрылғыда сақталады.</p>
-          <div class="hero-actions">
-            <a class="primary-btn" href="#add">+ HTML қосымша қосу</a>
-            <a class="secondary-btn" href="#apps">Дүкенді көру ↓</a>
-          </div>
-        </div>
-        <div class="hero-art" aria-hidden="true">
-          <div class="orb"></div>
-          <div class="floating-card float-one"><div class="mini-icon">🧮</div><div><strong>Mini Calc</strong><small>HTML app</small></div></div>
-          <div class="floating-card float-two"><div class="mini-icon">⚡</div><div><strong>Орнатылды</strong><small>бір басумен</small></div></div>
-        </div>
-      </section>
+    <section class="section" id="apps"><div class="section-head"><div><div class="kicker">Application shelf</div><h2>Таңдаулы қосымшалар</h2><p>APK, HTML және utility құралдарың осы жерде.</p></div><a class="outline" href="#upload">+ Қосу</a></div><div class="toolbar"><div class="search"><span>⌕</span><input id="search" placeholder="Қосымшаны іздеу..."></div><button class="filter active" data-filter="all">Барлығы</button><button class="filter" data-filter="utility">Utility</button><button class="filter" data-filter="game">Game</button></div><div class="grid" id="appGrid"></div></section>
 
-      <section class="section" id="apps">
-        <div class="section-head">
-          <div><h2>Қосымшалар дүкені</h2><p id="appSummary">Дайын demo-қосымшалар және сен қосқан HTML файлдар.</p></div>
-        </div>
-        <div class="toolbar">
-          <div class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Қосымшаны іздеу..." /></div>
-          <button class="category-btn active" data-category="all">Барлығы</button>
-          <button class="category-btn" data-category="utility">Пайдалы</button>
-          <button class="category-btn" data-category="game">Ойын</button>
-          <button class="category-btn" data-category="other">Басқа</button>
-          <button class="category-btn" id="showInstalled">Орнатылғандар</button>
-        </div>
-        <div class="app-grid" id="appGrid"></div>
-      </section>
+    <section class="section" id="media"><div class="section-head"><div><div class="kicker">Watch / learn</div><h2>Видео</h2><p>Қосымшаларыңды көрсететін қысқа видеолар.</p></div><a class="lime" href="#upload">+ Видео жүктеу</a></div><div class="media-grid"><article class="video"><div class="thumb"></div><div class="video-info"><h3>BYTEHUB-ты 60 секундта түсіну</h3><p>Дүкенге кіріспе және негізгі экран.</p><div class="video-meta"><span>▶ 02:14</span><span>Today</span></div></div></article><article class="video"><div class="thumb"></div><div class="video-info"><h3>NOVA Tools обзор</h3><p>Қолданбаның негізгі функциялары.</p><div class="video-meta"><span>▶ 04:38</span><span>2 days ago</span></div></div></article><article class="video"><div class="thumb"></div><div class="video-info"><h3>APK орнату жолы</h3><p>Android-та қауіпсіз орнату қадамдары.</p><div class="video-meta"><span>▶ 03:07</span><span>1 week ago</span></div></div></article></div></section>
 
-      <section class="section" id="add">
-        <div class="add-section">
-          <aside class="info-panel">
-            <div class="eyebrow">⚙ Қалай жұмыс істейді?</div>
-            <h2>HTML файлыңды дүкенге қос.</h2>
-            <p>Бұл нұсқа серверсіз жұмыс істейді: сен қосқан файлдар браузердің localStorage қоймасында сақталады.</p>
-            <ul>
-              <li>Тек өзіңнің немесе рұқсатың бар HTML файлдарды жүкте.</li>
-              <li>Preview арқылы дүкеннен шықпай тексер.</li>
-              <li>«Орнату» қосымшаны осы браузердегі жеке тізімге сақтайды.</li>
-              <li>«Ашу» файлды жаңа бетте іске қосады.</li>
-            </ul>
-          </aside>
+    <section class="section" id="guides"><div class="section-head"><div><div class="kicker">Creator knowledge</div><h2>Нұсқаулықтар</h2><p>Пайдаланушыға бәрін қысқа әрі түсінікті көрсет.</p></div><a class="lime" href="#upload">+ Жазу</a></div><div class="guides"><article class="guide"><div class="guide-icon">01</div><div><h3>APK файлын Android-қа орнату</h3><p>Рұқсат, жүктеу және іске қосу қадамдары.</p></div><span class="arrow">↗</span></article><article class="guide"><div class="guide-icon">02</div><div><h3>NOVA Tools аккаунтын баптау</h3><p>Бірінші іске қосылғаннан кейінгі 3 қадам.</p></div><span class="arrow">↗</span></article><article class="guide"><div class="guide-icon">03</div><div><h3>Жаңарту шыққанда не істеу керек?</h3><p>Ескі нұсқадан жаңа APK-ға ауысу.</p></div><span class="arrow">↗</span></article><article class="guide"><div class="guide-icon">04</div><div><h3>Видеоға сипаттама жазу</h3><p>Preview, нұсқа және жүктеу сілтемесі.</p></div><span class="arrow">↗</span></article></div></section>
 
-          <form class="form-panel" id="addForm">
-            <div class="section-head"><div><h2>Жаңа HTML қосымша</h2><p>Файлды таңдап, карточкаға атау бер.</p></div></div>
-            <div class="form-grid">
-              <div class="field"><label for="appName">Атауы</label><input class="text-input" id="appName" required placeholder="Мысалы: Менің калькуляторым" /></div>
-              <div class="field"><label for="appIcon">Белгіше</label><input class="text-input" id="appIcon" maxlength="3" value="🚀" placeholder="🚀" /></div>
-              <div class="field"><label for="appCategory">Санаты</label><select id="appCategory"><option value="utility">Пайдалы</option><option value="game">Ойын</option><option value="other">Басқа</option></select></div>
-              <div class="field"><label for="appFile">HTML файл</label><input class="file-input" id="appFile" required type="file" accept=".html,.htm,text/html" /></div>
-              <div class="field full"><label for="appDescription">Қысқаша сипаттама</label><textarea id="appDescription" placeholder="Бұл қосымша не істейді?"></textarea></div>
-            </div>
-            <div class="file-note">Ұсыныс: бір файлдық HTML қолданба болғаны ыңғайлы. CSS/JS-ті HTML ішіне қоса аласың.</div>
-            <button class="primary-btn form-submit" type="submit">+ Дүкенге қосу</button>
-            <div class="notice" id="formNotice"></div>
-          </form>
-        </div>
-      </section>
-    </div>
+    <section class="section" id="upload"><div class="upload"><div class="intro"><div class="kicker">Creator mode</div><h2>Контентті өзің басқар.</h2><p>APK, видео немесе нұсқаулықты бір форма арқылы дайында. Бұл дизайн кейін Cloudflare Storage-пен жалғанады.</p><ul><li>APK карточкасы: иконка, нұсқа, өлшем</li><li>Видео: preview және сипаттама</li><li>Нұсқаулық: қадамдар мен ескертулер</li></ul></div><div><form id="uploadForm"><div class="section-head"><div><h2>Жаңа контент</h2><p>Creator панельдің дайын макеті.</p></div></div><div class="form-grid"><div class="field"><label>Атауы</label><input class="text" id="title" required placeholder="Мысалы: My APK v1.0"></div><div class="field"><label>Контент түрі</label><select class="text" id="type"><option>APK</option><option>Видео</option><option>Нұсқаулық</option></select></div><div class="field full"><label>Файл</label><div class="drop"><strong>Файлды таңда немесе осында таста</strong><span>.apk · .mp4 · .webm · .jpg</span><input id="file" type="file" accept=".apk,video/*,image/*,.html,.txt"></div></div><div class="field full"><label>Қысқаша сипаттама</label><textarea id="description" placeholder="Пайдаланушы бұл контент туралы нені білуі керек?"></textarea></div></div><button class="lime submit" type="submit">Draft ретінде сақтау →</button></form><div class="drafts" id="drafts"></div></div></div></section>
   </main>
-
-  <footer><div class="wrap">HTML Market · HTML қосымшаларына арналған қарапайым дүкен</div></footer>
-
-  <div class="modal" id="previewModal" role="dialog" aria-modal="true" aria-label="Қосымшаны preview жасау">
-    <div class="modal-box">
-      <div class="modal-head"><strong id="modalTitle">Preview</strong><button class="close" id="closeModal" aria-label="Жабу">×</button></div>
-      <iframe id="previewFrame" title="HTML қосымша preview" sandbox="allow-scripts"></iframe>
-    </div>
-  </div>
-  <div class="toast" id="toast"></div>
-
+  <footer><div class="shell">BYTEHUB · private creator store · built for your apps</div></footer><div class="toast" id="toast"></div>
   <script>
-    const APPS_KEY = 'html-market-apps-v1';
-    const INSTALLED_KEY = 'html-market-installed-v1';
-    const starterApps = [
-      {
-        id: 'starter-calc', name: 'Mini Calc', icon: '🧮', category: 'utility', description: 'Жылдам есептеуге арналған шағын калькулятор.', size: 'Demo · 1 файл',
-        html: '<!doctype html><html><head><meta charset="utf-8"><title>Mini Calc</title><style>body{font:16px system-ui;display:grid;place-items:center;min-height:100vh;background:#eef2ff;color:#111827}main{padding:24px;background:white;border-radius:18px;box-shadow:0 15px 40px #33415522}input{width:220px;padding:12px;border:1px solid #cbd5e1;border-radius:10px}button{padding:11px 14px;margin-top:10px;border:0;border-radius:10px;background:#635bff;color:white}</style></head><body><main><h2>🧮 Mini Calc</h2><input id="a" placeholder="12 + 5 * 2"><br><button onclick="out.textContent=Function(\"return \"+a.value)()">Есептеу</button><h3 id="out">Нәтиже осында</h3></main></body></html>'
-      },
-      {
-        id: 'starter-notes', name: 'Quick Notes', icon: '📝', category: 'utility', description: 'Браузерде шағын жазбалар сақта.', size: 'Demo · 1 файл',
-        html: '<!doctype html><html><head><meta charset="utf-8"><title>Quick Notes</title><style>body{font:16px system-ui;max-width:650px;margin:50px auto;padding:20px;background:#fff7ed;color:#292524}textarea{width:100%;min-height:280px;padding:16px;border:1px solid #fed7aa;border-radius:15px;box-sizing:border-box}button{margin-top:10px;padding:11px 16px;border:0;border-radius:9px;background:#ea580c;color:#fff}</style></head><body><h1>📝 Quick Notes</h1><textarea id="note" placeholder="Жаза бер..."></textarea><br><button onclick="localStorage.note=note.value">Сақтау</button><button onclick="note.value=localStorage.note||\"\"">Жүктеу</button></body></html>'
-      },
-      {
-        id: 'starter-tap', name: 'Tap Game', icon: '🎮', category: 'game', description: '10 секундта мүмкіндігінше көп ұпай жина.', size: 'Demo · 1 файл',
-        html: '<!doctype html><html><head><meta charset="utf-8"><title>Tap Game</title><style>body{font:18px system-ui;text-align:center;background:#111827;color:white;padding:50px}.tap{width:180px;height:180px;border-radius:50%;border:0;background:#f43f5e;color:#fff;font-size:28px;box-shadow:0 12px 0 #9f1239}.tap:active{transform:translateY(8px);box-shadow:0 4px 0 #9f1239}</style></head><body><h1>🎮 Tap Game</h1><p>Ұпай: <b id="score">0</b></p><button class="tap" onclick="score.textContent=+score.textContent+1">TAP!</button></body></html>'
-      }
+    const apps=[
+      {id:'nova',name:'NOVA Tools',icon:'✦',cat:'utility',desc:'Күнделікті тапсырмаларға арналған жылдам құралдар.',meta:'APK · v1.4.2 · 18 MB',color:'#45e6ff',bg:'rgba(69,230,255,.13)'},
+      {id:'pixel',name:'Pixel Notes',icon:'▦',cat:'utility',desc:'Жеңіл, жылдам және әдемі жазба қосымшасы.',meta:'APK · v2.0.1 · 9 MB',color:'#cbff3d',bg:'rgba(203,255,61,.13)'},
+      {id:'neon',name:'Neon Run',icon:'↯',cat:'game',desc:'Неон әлеміндегі қысқа arcade ойыны.',meta:'APK · v0.9.8 · 42 MB',color:'#ff739d',bg:'rgba(255,115,157,.13)'},
+      {id:'qr',name:'QR Kit',icon:'⌗',cat:'utility',desc:'QR кодты оқу және тез бөлісу құралы.',meta:'HTML · 1 файл',color:'#9d7bff',bg:'rgba(157,123,255,.13)'},
+      {id:'tap',name:'Tap Zone',icon:'◉',cat:'game',desc:'Кішкентай, бірақ addictive tap challenge.',meta:'APK · v1.0.0 · 12 MB',color:'#ffad5c',bg:'rgba(255,173,92,.13)'},
+      {id:'focus',name:'Focus Timer',icon:'◷',cat:'utility',desc:'Оқу мен жұмысқа арналған минимал таймер.',meta:'HTML · PWA ready',color:'#62e6a8',bg:'rgba(98,230,168,.13)'}
     ];
-
-    let customApps = JSON.parse(localStorage.getItem(APPS_KEY) || '[]');
-    let installed = new Set(JSON.parse(localStorage.getItem(INSTALLED_KEY) || '[]'));
-    let activeCategory = 'all';
-    let onlyInstalled = false;
-
-    const $ = (id) => document.getElementById(id);
-    const categoryNames = { utility: 'Пайдалы', game: 'Ойын', other: 'Басқа' };
-    const allApps = () => [...starterApps, ...customApps];
-    const slug = (value) => value.toLowerCase().trim().replace(/[^a-z0-9а-яё]+/gi, '-').replace(/^-|-$/g, '') || 'html-app';
-
-    function showToast(message) {
-      $('toast').textContent = message;
-      $('toast').classList.add('show');
-      clearTimeout(showToast.timer);
-      showToast.timer = setTimeout(() => $('toast').classList.remove('show'), 2600);
-    }
-
-    function renderApps() {
-      const query = $('searchInput').value.toLowerCase().trim();
-      const apps = allApps().filter(app => {
-        const matchesText = [app.name, app.description, categoryNames[app.category]].join(' ').toLowerCase().includes(query);
-        const matchesCategory = activeCategory === 'all' || app.category === activeCategory;
-        const matchesInstalled = !onlyInstalled || installed.has(app.id);
-        return matchesText && matchesCategory && matchesInstalled;
-      });
-      $('installedCount').textContent = installed.size;
-      $('appSummary').textContent = `${allApps().length} қосымша · ${installed.size} орнатылған`;
-      $('appGrid').innerHTML = apps.length ? apps.map(app => {
-        const isInstalled = installed.has(app.id);
-        return `<article class="app-card">
-          <div class="app-top"><div class="app-icon">${escapeHtml(app.icon || '📦')}</div><span class="pill">${categoryNames[app.category] || 'Басқа'}</span></div>
-          <h3>${escapeHtml(app.name)}</h3><p>${escapeHtml(app.description || 'HTML форматындағы қосымша')}</p>
-          <div class="app-meta">${escapeHtml(app.size || 'HTML app')} ${isInstalled ? '· ✓ Орнатылды' : ''}</div>
-          <div class="card-actions"><button data-action="open" data-id="${app.id}">Ашу</button><button data-action="install" data-id="${app.id}">${isInstalled ? 'Орнатылды' : 'Орнату'}</button><button data-action="preview" data-id="${app.id}">Preview</button></div>
-        </article>`;
-      }).join('') : '<div class="empty">Бұл сүзгіге сай қосымша табылмады.</div>';
-    }
-
-    function escapeHtml(value) {
-      return String(value).replace(/[&<>'"]/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;' }[char]));
-    }
-
-    function findApp(id) { return allApps().find(app => app.id === id); }
-
-    function openApp(id) {
-      const app = findApp(id); if (!app) return;
-      const blob = new Blob([app.html], { type: 'text/html;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      window.open(url, '_blank', 'noopener,noreferrer');
-      setTimeout(() => URL.revokeObjectURL(url), 60000);
-    }
-
-    function previewApp(id) {
-      const app = findApp(id); if (!app) return;
-      $('modalTitle').textContent = `${app.icon || '📦'} ${app.name}`;
-      $('previewFrame').srcdoc = app.html;
-      $('previewModal').classList.add('open');
-    }
-
-    function installApp(id) {
-      const app = findApp(id); if (!app) return;
-      installed.add(id);
-      localStorage.setItem(INSTALLED_KEY, JSON.stringify([...installed]));
-      renderApps();
-      showToast(`${app.name} «Менің қосымшаларыма» орнатылды`);
-    }
-
-    $('appGrid').addEventListener('click', (event) => {
-      const button = event.target.closest('button[data-action]'); if (!button) return;
-      const { action, id } = button.dataset;
-      if (action === 'open') openApp(id);
-      if (action === 'preview') previewApp(id);
-      if (action === 'install') installApp(id);
-    });
-
-    $('searchInput').addEventListener('input', renderApps);
-    document.querySelectorAll('.category-btn[data-category]').forEach(button => button.addEventListener('click', () => {
-      document.querySelectorAll('.category-btn[data-category]').forEach(item => item.classList.remove('active'));
-      button.classList.add('active'); activeCategory = button.dataset.category; onlyInstalled = false; renderApps();
-    }));
-    function toggleInstalled() {
-      onlyInstalled = !onlyInstalled;
-      $('showInstalled').classList.toggle('active', onlyInstalled);
-      if (onlyInstalled) document.querySelectorAll('.category-btn[data-category]').forEach(item => item.classList.remove('active'));
-      renderApps();
-      $('apps').scrollIntoView({ behavior: 'smooth' });
-    }
-    $('showInstalled').addEventListener('click', toggleInstalled);
-    $('installedLink').addEventListener('click', toggleInstalled);
-    $('closeModal').addEventListener('click', () => $('previewModal').classList.remove('open'));
-    $('previewModal').addEventListener('click', (event) => { if (event.target === $('previewModal')) $('previewModal').classList.remove('open'); });
-    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') $('previewModal').classList.remove('open'); });
-
-    $('addForm').addEventListener('submit', (event) => {
-      event.preventDefault();
-      const file = $('appFile').files[0];
-      const notice = $('formNotice');
-      if (!file) return;
-      if (!/\.html?$/i.test(file.name)) { notice.textContent = 'Тек HTML файл таңда.'; notice.className = 'notice show error'; return; }
-      const reader = new FileReader();
-      reader.onload = () => {
-        const app = { id: `custom-${Date.now()}`, name: $('appName').value.trim(), icon: $('appIcon').value.trim() || '📦', category: $('appCategory').value, description: $('appDescription').value.trim() || 'Өзім қосқан HTML қосымша', size: `${Math.max(1, Math.round(file.size / 1024))} KB · HTML`, html: reader.result };
-        customApps.push(app);
-        localStorage.setItem(APPS_KEY, JSON.stringify(customApps));
-        event.target.reset(); $('appIcon').value = '🚀';
-        notice.textContent = 'Қосымша дүкенге қосылды!'; notice.className = 'notice show ok';
-        renderApps(); showToast(`${app.name} дүкенге қосылды`);
-        $('apps').scrollIntoView({ behavior: 'smooth' });
-      };
-      reader.readAsText(file);
-    });
-
-    renderApps();
+    const installed=new Set(JSON.parse(localStorage.getItem('bytehub-installed')||'[]'));const drafts=JSON.parse(localStorage.getItem('bytehub-drafts')||'[]');const $=id=>document.getElementById(id);const esc=v=>String(v).replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));
+    function notify(text){$('toast').textContent=text;$('toast').classList.add('show');clearTimeout(notify.timer);notify.timer=setTimeout(()=>$('toast').classList.remove('show'),2600)}
+    function card(a){const on=installed.has(a.id);return `<article class="card" style="--color:${a.color};--icon-bg:${a.bg}"><div class="card-top"><div class="icon">${esc(a.icon)}</div><span class="verified">✓ VERIFIED</span></div><h3>${esc(a.name)}</h3><p>${esc(a.desc)}</p><div class="meta">${esc(a.meta)}</div><div class="card-actions"><button data-install="${a.id}">${on?'✓ Installed':'Install ↗'}</button><button data-details="${a.id}">Details</button></div></article>`}
+    function render(filter='all',q=''){const list=apps.filter(a=>(filter==='all'||a.cat===filter)&&(`${a.name} ${a.desc}`.toLowerCase().includes(q.toLowerCase())));$('appGrid').innerHTML=list.map(card).join('')}
+    document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.filter,$('search').value)}));$('search').addEventListener('input',e=>render(document.querySelector('.filter.active').dataset.filter,e.target.value));document.addEventListener('click',e=>{const install=e.target.closest('[data-install]');const details=e.target.closest('[data-details]');if(install){const a=apps.find(x=>x.id===install.dataset.install);installed.add(a.id);localStorage.setItem('bytehub-installed',JSON.stringify([...installed]));render(document.querySelector('.filter.active').dataset.filter,$('search').value);notify(`${a.name} «Менің қосымшаларыма» қосылды`)}if(details)notify('Details беті келесі қадамда ашылады')});
+    function showDrafts(){$('drafts').innerHTML=drafts.slice().reverse().map(x=>`<div class="draft"><span><b>${esc(x.title)}</b> · ${esc(x.type)} · ${esc(x.file)}</span><span>DRAFT</span></div>`).join('')}$('uploadForm').addEventListener('submit',e=>{e.preventDefault();const f=$('file').files[0];drafts.push({title:$('title').value,type:$('type').value,file:f?.name||'мәтіндік нұсқаулық'});localStorage.setItem('bytehub-drafts',JSON.stringify(drafts));e.target.reset();showDrafts();notify('Draft сақталды — Creator mode дайын')});render();showDrafts();
   </script>
 </body>
 </html>
