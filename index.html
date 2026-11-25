@@ -257,7 +257,40 @@
     .nav-item.active { color: transparent; }.nav-item.active .nav-icon { background: transparent; color: transparent; }
     .toast { position:fixed; z-index:20; left:50%; bottom:110px; transform:translate(-50%, 20px); padding:13px 18px; border-radius:9px; background:#f1f1f1; color:#27272a; opacity:0; pointer-events:none; transition:.2s; white-space:nowrap; font-size:13px; }.toast.show { opacity:1; transform:translate(-50%,0); }
     @media (min-width: 721px) { .app { box-shadow: 0 0 50px #000; } }
-    @media (max-width: 450px) { .content { padding: 0 24px; }.topbar { padding:0 24px; }.statusbar { padding:0 25px; }.detail-back { margin-left:-24px; margin-right:-24px; padding-left:24px; padding-right:24px; }.apps-hero-image { width: calc(100% + 48px); margin-left:-24px; margin-right:-24px; height: 545px; }.search-overlay { left:24px; width:calc(100% - 48px); }.install-overlay, .install-spinner { left:24px; width:calc(100% - 48px); }.hero { height:310px; }.hero-copy h2 { font-size:22px; }.app-icon { width:66px; height:66px; flex-basis:66px; }.bottom-nav { padding:0; }.nav-item { font-size:12px; } }
+    @media (max-width: 450px) {
+      .content { padding: 0 24px; }
+      .topbar { padding: 0 24px; }
+      .statusbar { padding: 0 25px; }
+      .detail-back { margin-left: -24px; margin-right: -24px; padding-left: 24px; padding-right: 24px; }
+      .apps-hero-image { width: calc(100% + 48px); margin-left: -24px; margin-right: -24px; height: 545px; }
+      .hero { height: 310px; }
+      .hero-copy h2 { font-size: 22px; }
+      .app-icon { width: 66px; height: 66px; flex-basis: 66px; }
+
+      /* Скриншоттарды телефон ендігіне пропорциямен сыйғызу. */
+      .app.games-mode .games-exact-image,
+      .app.apps-mode .apps-exact-image,
+      .app.search-mode .search-exact-image,
+      .app.books-mode .books-exact-image,
+      .app.profile-mode .profile-exact-stack img:first-child,
+      .app.detail-mode .detail-exact-image {
+        height: auto !important;
+        object-fit: contain !important;
+      }
+
+      /* Іздеу және орнату батырмалары да 720px макетпен бірге масштабталады. */
+      .search-overlay { top: 9px; left: 20px; width: calc(100% - 40px); height: 41px; gap: 6px; padding: 0 6px 0 12px; border-radius: 21px; }
+      .search-overlay input { font-size: 10.5px; }
+      .search-submit { width: 29px; height: 29px; flex-basis: 29px; font-size: 17px; }
+      .install-overlay, .install-spinner { top: 137px; left: 20px; width: calc(100% - 40px); height: 34px; border-radius: 18px; font-size: 9px; }
+
+      /* Төменгі навигация телефонда екі есе биік болып кетпесін. */
+      .phone { padding-bottom: 75px; }
+      .bottom-nav { height: 75px; padding: 0; }
+      .nav-image { bottom: 7.5px; height: 67.5px; }
+      .nav-item { height: 67.5px; font-size: 12px; }
+      .toast { bottom: 55px; font-size: 10px; padding: 6.5px 9px; border-radius: 4.5px; }
+    }
   </style>
 </head>
 <body>
